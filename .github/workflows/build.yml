@@ -19,6 +19,9 @@ jobs:
       - name: "Checkout default Antora UI"
         run: git clone https://gitlab.com/antora/antora-ui-default.git ui
 
+      - name: "Override with local changes"
+        run: cp -rf ./src/ ./ui
+
       - name: "Install dependencies"
         run: npm install
         working-directory: ui
