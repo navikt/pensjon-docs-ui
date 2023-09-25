@@ -19,6 +19,11 @@ jobs:
       - name: "Checkout default Antora UI"
         run: git clone https://gitlab.com/antora/antora-ui-default.git ui
 
+      - name: specific node version
+        uses: actions/setup-node@v3
+        with:
+          node-version: '10'
+
       - name: "Override with local changes"
         run: cp -rf ./src/ ./ui
 
