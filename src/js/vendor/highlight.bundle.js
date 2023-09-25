@@ -23,10 +23,7 @@
   // https://github.com/highlightjs/highlight.js/issues/1271
   // Note: leading space
   hljs.getLanguage('ruby').keywords += ' HVIS ELLER ELLERS IKKE SLUTT START END'
-  hljs.getLanguage('ruby').keywords += ' LOOP FOR SETT RETURN RETURNER'
-
-  // ...og literals
-  hljs.getLanguage('ruby').literals += ' TRUE true FALSE false SANN USANN NULL'
+  hljs.getLanguage('ruby').keywords += ' LOOP FOR SETT RETURN RETURNER SÅ KAST'
 
   ;[].slice.call(document.querySelectorAll('pre code.hljs[data-lang]')).forEach(function (node) {
     hljs.highlightBlock(node)
