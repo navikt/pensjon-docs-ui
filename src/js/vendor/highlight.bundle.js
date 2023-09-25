@@ -29,6 +29,6 @@
   hljs.getLanguage('ruby').literals += ' TRUE true FALSE false SANN USANN NULL'
 
   ;[].slice.call(document.querySelectorAll('pre code.hljs[data-lang]')).forEach(function (node) {
-      hljs.highlightBlock(node)
+    hljs.highlightBlock(node)
   })
 })()
