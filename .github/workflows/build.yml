@@ -50,6 +50,7 @@ jobs:
       - name: Create a release
         id: create_release
         uses: actions/create-release@v1
+        if: github.ref == 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -57,9 +58,19 @@ jobs:
           release_name: ${{ env.version }}
           draft: false
           prerelease: false
+
+      # Kun for å sjekke output av non-main
+      - name: "Upload generated site"
+        uses: actions/upload-artifact@v1.0.0
+        if: github.ref != 'refs/heads/main'
+        with:
+          name: site
+          path: "${{ github.workspace }}/ui/build/${{ env.SITE_DIR }}"
+
       - name: Upload the UI bundle ZIP file
         id: upload-release-asset
         uses: actions/upload-release-asset@v1.0.1
+        if: github.ref == 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
