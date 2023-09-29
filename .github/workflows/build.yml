@@ -3,6 +3,8 @@ name: build
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - README.md
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
@@ -14,6 +16,7 @@ jobs:
 
     outputs:
       version: ${{ steps.version.outputs.version }}
+
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
