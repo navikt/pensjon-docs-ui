@@ -67,5 +67,5 @@ jobs:
           # See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./ui/build/ui-bundle.zip
-          asset_name: ui-bundle-${{ env.version }}.zip
+          asset_name: ui-bundle.zip
           asset_content_type: application/zip
