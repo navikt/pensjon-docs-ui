@@ -22,7 +22,7 @@
   // Customization: legger til diverse keywords runtime tilpasset pseudokoden i den gamle dok'en
   // https://github.com/highlightjs/highlight.js/issues/1271
   // Note: leading space
-  hljs.getLanguage('ruby').keywords += ' HVIS ELLER ELLERS IKKE SLUTT START END'
+  hljs.getLanguage('ruby').keywords += ' HVIS ELLER ELLERS IKKE SLUTT START END KALL'
   hljs.getLanguage('ruby').keywords += ' LOOP FOR SETT RETURN RETURNER SÅ KAST'
 
   ;[].slice.call(document.querySelectorAll('pre code.hljs[data-lang]')).forEach(function (node) {
