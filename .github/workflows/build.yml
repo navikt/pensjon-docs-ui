@@ -10,11 +10,23 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions: write-all
+
+    outputs:
+      version: ${{ steps.version.outputs.version }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout local files
         uses: actions/checkout@v3
+
+      - name: Set version
+        id: version
+        shell: bash
+        run: |
+          TIME=$(TZ="Europe/Oslo" date +%Y.%m.%d-%H.%M)
+          COMMIT=$(git rev-parse --short=12 HEAD)
+          echo "version=$TIME-$COMMIT" >> $GITHUB_ENV 
 
       - name: "Checkout default Antora UI"
         run: git clone https://gitlab.com/antora/antora-ui-default.git ui
@@ -35,8 +47,25 @@ jobs:
         run: gulp bundle
         working-directory: ui
 
-      - name: "Upload bundle"
-        uses: actions/upload-artifact@v1.0.0
+      - name: Create a release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: ui-bundle
-          path: "${{ github.workspace }}/ui/build/ui-bundle.zip"
+          tag_name: ${{ env.version }}
+          release_name: ${{ env.version }}
+          draft: false
+          prerelease: false
+      - name: Upload the UI bundle ZIP file
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ui-bundle-${{ secrets.GITHUB_TOKEN }}
+        with:
+          # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`.
+          # See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./ui/build/bundle.zip
+          asset_name: bundle.zip
+          asset_content_type: application/zip
