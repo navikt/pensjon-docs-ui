@@ -25,6 +25,9 @@
   hljs.getLanguage('ruby').keywords += ' HVIS ELLER ELLERS IKKE SLUTT START END KALL'
   hljs.getLanguage('ruby').keywords += ' LOOP FOR SETT RETURN RETURNER SÅ KAST'
 
+  hljs.getLanguage('javascript').keywords += ' HVIS ELLER ELLERS IKKE SLUTT START END KALL'
+  hljs.getLanguage('javascript').literal += ' SANN USANN TRUE FALSE NULL null'
+
   ;[].slice.call(document.querySelectorAll('pre code.hljs[data-lang]')).forEach(function (node) {
     hljs.highlightBlock(node)
   })
