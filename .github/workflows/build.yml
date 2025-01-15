@@ -28,7 +28,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout local files
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set version
         id: version
@@ -42,9 +42,9 @@ jobs:
         run: git clone https://gitlab.com/antora/antora-ui-default.git ui
 
       - name: specific node version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '10'
+          node-version: '16'
 
       - name: "Override with local changes"
         run: cp -rf ./src/ ./ui
@@ -71,7 +71,7 @@ jobs:
 
       # Kun for å sjekke output av non-main
       - name: "Upload generated site"
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v4
         if: github.ref != 'refs/heads/main'
         with:
           name: site
